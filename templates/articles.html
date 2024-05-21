@@ -1,0 +1,73 @@
+{% extends 'layout.html' %}
+<style>
+
+    .body{
+        background-color: black;
+    }
+</style>
+
+
+
+{% block body %}
+
+
+    
+
+
+<h4> Yayınlanmış makaleler</h4>
+<br>
+<form style="float: right;" >
+
+  {% csrf_token %}
+
+  <input type="text" maxlength="64" name="keyword" placeholder="ara">
+  <button type="submit" class="btn btn-primary btn-sm">Ara</button>
+
+</form>
+
+      
+      {% if articles %}
+
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">Başlık</th>
+            <th scope="col">Yayınlayan</th>
+            <th scope="col">Oluşturma Tarihi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <br> <br>
+      {% for article in articles  %}
+
+      <tr>
+        <th scope="row">{{article.id}}</th>
+        <!-- <td> <a href="/articles/article/{{article.id}}"> {{article.title}}</a></td> dinamikten önceki -->
+        <td> <a href="{% url 'article:detail' article.id %}"> {{article.title}}</a></td>
+        <td>{{article.author.username}}</td>
+        <td>{{article.created_date}}</td>
+      </tr>
+      
+
+      {% endfor %}
+    
+      {% else %}
+          <!--  
+          <div class="alert alert-primary" role="alert">Henüz yayınlanmış makale bulunmamaktadır ->
+          <a class="btn btn-info" href="/articles/addarticle" style="background-color: aliceblue; color: black;"> 
+            Makale paylaşmak için buraya tıkla</a> </div>
+           BU KISMI NEDEN YORUM SATIRINA ALDIM, ÖNCEDEN KULLANIYORDUM FAKAT ARAMA BUTONU EKLEYECEĞİM İÇİN BULUNAMADI EKLEMEK DAHA
+           MANTIKLI OLACAKTIR ÇÜNKÜ ONUNLA İLİŞKİLİ OLACAK(arama sonucu bulunamadı yerine başka bir şey yazması saçma olur )  -->
+         
+      <div class="alert alert-primary" role="alert"> Makale Bulunamadı.
+        
+      </div>
+      <a href="/articles" class="alert alert-dark" style="float: right;"> Tekrar aramak için buraya tıkla</a>
+
+      {% endif %}
+       
+    </tbody>
+  </table>
+{% endblock body %}
+    

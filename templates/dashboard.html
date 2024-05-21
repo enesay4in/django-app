@@ -1,0 +1,74 @@
+{% extends 'layout.html' %}
+<style>
+
+    .body{
+        background-color: black;
+    }
+</style>
+
+
+
+{% block body %}
+
+
+    
+
+
+<h4>KONTROL PANELİ 
+    <small class="text-muted">({{request.user.username}})</small>
+</h4>
+<br>
+
+
+      
+      {% if articles %}
+
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">Başlık</th>
+            <th scope="col">Yazar</th>
+            <th scope="col">Tarih</th>
+            <th scope="col">Güncelle</th>
+            <th scope="col">Sil</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!--  <tr>   bu örnek tablo silmiyorum
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr> -->
+
+          <a class="btn btn-dark" href="/articles/addarticle" style="float: right;"> Makale Ekle</a>
+          <br> <br>
+      {% for article in articles  %}
+
+      <tr>
+        <th scope="row">{{article.id}}</th>
+        <td>
+          <a href="/articles/article/{{article.id}}"> {{article.title}}  </a>
+        </td>
+        <td>{{article.author.username}}</td>
+        <td>{{article.created_date}}</td>
+        <td><a href="/articles/update/{{article.id}}" class="btn btn-warning">Güncelle</a></td>
+        <td><a href="/articles/delete/{{article.id}}" class="btn btn-danger">Sil</a></td>
+      </tr>
+
+
+      {% endfor %}
+    
+      {% else %}
+          <div class="alert alert-primary" role="alert">Henüz makale eklemedin -->
+          <a class="btn btn-info" href="/articles/addarticle" style="background-color: aliceblue; color: black;"> 
+            Makale Eklemek için buraya tıkla</a>
+          </div>
+        
+      {% endif %}
+       
+    </tbody>
+  </table>
+{% endblock body %}
+    

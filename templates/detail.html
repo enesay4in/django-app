@@ -1,0 +1,102 @@
+{% extends 'layout.html' %}
+
+
+{% block body %}
+    
+<div class="row">
+                <div class="col-lg-13">
+                    <!-- Post content-->
+                    <article>
+                        <!-- Post header-->
+                        <header class="mb-4">
+                            <!-- Post title-->
+                            <h3 class="fw-bolder mb-1">{{article.title}}</h3>
+                            <!-- Post meta content-->
+                            <div class="text-muted fst-italic mb-2">{{article.created_date}}</div>
+                            <!-- Author-->
+                            <p class="lead" style="float: right; font-family:cursive;">
+                                 {{article.author.username}} tarafından yayınlandı.
+                            </p>
+                            <!-- Post categories-->
+                            <!--  
+                            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>
+                            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a> 
+                            -->
+                        </header>
+                        <!-- Preview image figure-->
+                        
+                        
+                        {% if article.article_image %}
+                        <figure class="mb-4"><img class="img-fluid rounded" src="{{article.article_image.url}}" alt="..." /></figure>
+                        {% endif %}
+                            
+
+                        
+
+
+                        <!-- Post content-->
+                        <section class="mb-5">
+                            <p class="fs-5 mb-4">{{article.content | safe}}</p>
+                        </section>
+                    </article>
+
+
+
+                    <h4>Yorumlar</h4>
+                    <hr>
+                    {% if comments %}
+
+                    
+                    {% for comment in comments  %}
+                    
+                    <div class="media mb-4">
+
+                        <div class="flex-shrink-0">
+                            <img class="d-flex mr-3 rounded-circle" src="/media/usericon.png" alt="..." style="height: 50px; width: 50px;"/>
+                        </div>
+                        <div class="ms-3">
+                          <!--   <div class="fw-bold"> {{comment.comment_author}} </div> -->
+                          <h5>
+                            {{comment.comment_author}}  <small class="text-muted">(Gönderilme tarihi: {{comment.comment_date}})</small>
+                        </h5>
+
+                            <p> {{comment.comment_content}} </p>
+                        </div>
+
+                </div>
+                    {% endfor %}
+                        
+                    
+
+                    {% else %}
+
+                        <div class="alert alert-warning"> Bu makaleye henüz yorum yapılmadı.</div>
+                        
+                    {% endif %}
+                        
+
+                    <div class="card my-4">
+                    <h5 class="card-header">Yorum ekle:</h5>
+                     <div class="card-body">
+                     <form method="POST" action="{% url 'article:comment' article.id %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">İsminiz</label>
+                            <input name="comment_author" type="text" class="form-control" id="formGroupExampleInput">
+                          </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Yorumunuz</label>
+                            <textarea name="comment_content" class="form-control" rows="3" ></textarea>   
+                        </div>
+                    </div> <!-- buton kötü duruyorsa bunu alttaki divden sonra kapat -->
+                        <button type="submit" class="btn btn-primary">Gönder</button>
+                     </form>   
+                    </div>
+
+
+                </div>
+
+</div>
+    
+{% endblock body %}
+    
