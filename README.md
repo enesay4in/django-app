@@ -5,26 +5,44 @@
 2-  cmd -> django-admin startproject blog_django yapıp projeyi başlattık (bu kod dosyaları otomatik oluşturdu)
 
 3-  settings.py -> Dil(tr), Time Zone(Europe/Istanbul) ayarlarnı değiştirdik . Debug en son değiştiririz şimdilik kalsın.
+
 4-  terminal -> python manage.py runserver yaparak dosyamızı çalıştırdık(terminal otomatik olarak dosyanın olduğu konumu seçer zaten)
+
 5-  terminal -> python manage.py migrate yaparak oluşan modelleri veritabanına kaydettik bu sayede sitede görebileceğiz
+
 6-  terminal -> python manage.py createsuperuser yaparak admin(superuser) kullanıcısı oluşturup admin paneline giriş yaptık
+
 7-  terminal -> python manage.py startapp article yaparak kendi uygulamamızı(app) oluşturduk ve ismini article yaptık
+
 8-  models.py -> article class'ı(tablosu) oluşturduk 
+
 9-  admin.py -> from .models import Article yaparak import ettik
+
 10- admin.py -> admin.site.register(Article) yaparak  admin paneline tablomuzu ekledik,kayıt ettirdik
+
 11- settings.py ->  INSTALLED_APPS altına -> 'article', ekliyoruz(virgül'ü unutma) 
+
 12- terminal -> python manage.py makemigrations yaparak oluşturduğumuz tabloyu programa getirtiyoruz(article klasoru oluştur ve içinde 0001_initial.py)
+
 13- terminal -> python manage.py migrate yaparak oluşturduğumuz migrations'u veritabanına kaydedip sitemizde görüntülüyoruz
+
 14- 0001_initial.py -> sayfasına gidip oluşan tabloya bakabilirsin. Bilerek primary key oluşturmamıştık django farkedip kendisi id primary key oluşturdu.
+
 15- localhost:8000/admin -> sayfasına gidip yeni article ekledik 
+
 16- models.py -> tablo objelerine verbose_name ekleyerek sitede gözükeceği ismi belirttik(normalde obje ismi görünüyordu)
+
 17- models.py -> def __str__ fonksiyonu oluştururak localhost:8000/admin/article/article/ sayfasında article object(1)..(99) diye gösterilen article 
+
     başlıklarını 'return self.title' yaparak article'nin başlığını döndürdük(unutma fonksiyonu sınıf içine yazıyoruz)
     eğer ki orada başka bilgi mesela articlenin başlığını değilde yazarını görüntülemek istersen 'return self.author' 
     mantığı anladın zaten oluşturduğun tablo elemanlarından herhangi birini döndürebilirsin
-#doküman -> https://docs.djangoproject.com/en/5.0/ref/contrib/admin/
+    #doküman -> https://docs.djangoproject.com/en/5.0/ref/contrib/admin/
+
 18- admin.py -> sayfasına gidip register işlemini daha komplike yaparak decorator ile ilişkilendirdik(orada anlattım ne yaptığımızı)
+
 19- admin.py -> dokümandan list display özelliğini bakarak article'nin sadece başlığını değil yazarını,başlığını ve oluşturulma tarihini gösterebilmeyi yapıyoruz
+
     zaten __str__ ile başlığı döndürüyorduk ama buradan title'ı silersen o fonksiyon işe yaramaz çünkü öncelik list displayda(yani buraya da ekle)
     bu da demek oluyor ki __str__ fonksiyonu işlevsiz kalıyor gerek yok ama ben silmiyorum dursun özel admin registeri kullanmadan nasıl yapıldığını görmek için
 20- admin.py -> sayfasına gidip list_display_link ile başlığa ve yazara link özelliğini ekledik bu sayede tıklanınca güncellemeye gidecektir
