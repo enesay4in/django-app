@@ -37,7 +37,7 @@
     başlıklarını 'return self.title' yaparak article'nin başlığını döndürdük(unutma fonksiyonu sınıf içine yazıyoruz)
     eğer ki orada başka bilgi mesela articlenin başlığını değilde yazarını görüntülemek istersen 'return self.author' 
     mantığı anladın zaten oluşturduğun tablo elemanlarından herhangi birini döndürebilirsin
-    #doküman -> https://docs.djangoproject.com/en/5.0/ref/contrib/admin/
+    doküman -> https://docs.djangoproject.com/en/5.0/ref/contrib/admin/
 
 18- admin.py -> sayfasına gidip register işlemini daha komplike yaparak decorator ile ilişkilendirdik(orada anlattım ne yaptığımızı)
 
@@ -145,13 +145,20 @@
         1) views.py dosyasında index fonksiyonu oluşturduk
         2) urls.py dosyasında index fonksiyonunu import ettik ve url path'i oluşturup kök dizin için index fonksiyonunu çalıştırmasını belirttik
         3) index.html sayfasını oluşturduk (layout.html'den extend etme sebebimiz navbar)
-39- urls.py -> bundan sonra daha fazla fonksiyon ve url için path yapacağımız için import etmeyi daha kullanışlı yapıyoruz
+        
+39- urls.py -> 
+
+    bundan sonra daha fazla fonksiyon ve url için path yapacağımız için import etmeyi daha kullanışlı yapıyoruz
     from article import views yaparak import edebilir ve direkt views içindeki bütün fonksiyonları çağırabiliriz
     !! fakat bunu yaptığımızda fonksiyonu belirtirken direkt isim değil views.fonksiyon_ismi olarak belirtmemiz gerekiyor
     örneğin: from article import views yaptık ve path içinde about fonksiyonu belirtirken --> path('/about', views.about , name= "about") olarak belirtmeliyiz
+    
 40- index.html -> flask dosyamızdan index.html için yaptığımız div class jumbotron'u alıp buraya yapıştırdık (hoşgeldiniz ekranı gibi bir şey)
+
 41- templates altına includes klasörü oluşturup onun içine de navbar.html dosyasını oluşturduk ve içeriğini flask navbar'dan alıp yapıştırdık (blog sayfam,hakkımda ve makaleler)
+
 42- hakkımda sayfası oluşturuyoruz 
+
     1) templates altına about.html dosyasını açtık ve içine extend layout.html ve block body ekledik
     2) views.py kısmına gidip def about fonksiyonu ekleyip render about.html olduğunu belirttik
     3) urls.py kısmına gidip path için url'yi /about olarak ve fonksiyonu da views.about olduğunu belirttik (path bittikten sonra virgül atmayı unutma)
@@ -188,6 +195,7 @@
     </ul>   yaparsak for döngüsüyle liste içindeki her elemanı sitede listeleyecektir 
 
 44- Dinamik URL nasıl yapılır ?
+
     1) views.py -> 
         def details(request,id):
             return HttpResponse("Details:" + str(id)) -> fonksiyonumuzu oluşturduk (httpresponse ile verme sebebim sadece örnek bu )
@@ -211,10 +219,10 @@
     10) user > urls.py -> register ve login fonksiyonlarına return render ile oluşturduğumuz html sayfalarını döndürdük ve siteye gidip user/register ve user/login denedik
 
 47- Uygulamayı djangoya belirtmeyi unuttuk ama uygulama hata da vermedi neden?
+
     Çünkü user uygulamamızın içersinde model oluşturmadık ve djangonun kendi user modelini kullandık
     Django zaten kendisi belirttiği uygulamaları migrate ettiği için bizim uygulamamızın içinde model olmadığından hata vermeden çalıştı
     Ama biz yine de şimdi djangoya belirtiyoruz çünkü uygulama içersinde ileride model oluşturabiliriz
-
     settings.py -> içersine girip "INSTALLED_APPS" listesi içersine "user",   diye ekledik
 
 48- User tablasu için form classlarını oluşturacağımız dosyayı açıyoruz
