@@ -45,12 +45,18 @@
 
     zaten __str__ ile başlığı döndürüyorduk ama buradan title'ı silersen o fonksiyon işe yaramaz çünkü öncelik list displayda(yani buraya da ekle)
     bu da demek oluyor ki __str__ fonksiyonu işlevsiz kalıyor gerek yok ama ben silmiyorum dursun özel admin registeri kullanmadan nasıl yapıldığını görmek için
+    
 20- admin.py -> sayfasına gidip list_display_link ile başlığa ve yazara link özelliğini ekledik bu sayede tıklanınca güncellemeye gidecektir
+
 21- admin.py -> sayfasında gidip search_field özelliği ile arama işlevi ekledik ve title üzerinden aranılacağını belirttik
+
 22- admin.py -> sayfasına gidip list_filter ile içeriğin tarihlerine göre filtreleme özelliğini ekledik(istediğin filtreleme kullanabilirsin başlık vb.)
+
 #TERMİNAL ÜZERİNDEN YENİ KULLANICI VEYA MAKALE OLUŞTURMA
 23- yeni terminal açıyoruz -> ' python manage.py shell ' yazıyoruz çünkü django ve orm sorgularını yazabileceğimiz python shell'ine ihtiyacımız var 
+
 24- shell ->  (InteractiveConsole) için yaptığımız işlemler:
+
     1)' from django.contrib.auth.models import User ' djangonun kendi içindeki user tablosunu,modelini almak için dahil ediyoruz (INSTALLED_APPS'e bakabilirsin uygulama orada gözükür)
     2)' from article.models import Article ' kendi oluşturduğumuz modül içindeki Article sınıfını dahil,import ettik 
         yani hem User class'ını hem de Article class'ını ayrı ayrı modüllerden dahil ettik ki bunlardan objeler oluşturabilir ve veritabanına kayıt edebiliriz
@@ -90,24 +96,34 @@
 
 25- settings.py -> dosyasına gidip TEMPLATES kısmını buluyoruz ve oradan 'DIRS' : [] bölümüne html templateslerimizin olacağı klasörün adını giriyoruz
     yani templates yazıyoruz . Bunun sebebi ise django templates arayacağı zaman belirttiğimiz klasöre yani directory'e gidecektir. -> 'DIRS' : ['templates']
+    
 26- html templateslerimizi koyacağımız klasörü oluşturuyoruz . Direkt ana klasörün içersine (blog_django) oluşturuyoruz
+
 27- templates klasörü içersine index.html dosyamızı oluşturup body içersine denemelik h3 etiketinde anasayfa metni ekliyoruz
+
 28- views.py -> dosyanına gidip HttpResponse'u importa dahil ettik sonra index fonksiyonumuzu oluşturduk ve içine HttpResponse ile yazılabilecek deneme metnini gönderdik
+
 29- urls.py -> dosyanına gidip view.py de oluşturduğumuz fonksiyonu dahil ettik (from article.views import index yaparak )
+
 30- urls.py -> anasayfamız için path oluşturup , çağrıldığında çalıştıracağı fonksiyonu belirttik (index fonksiyonu çalışacak)
     bu denemeydi çünkü şuanda index fonksiyonu sadece HttpResponse ile ekrana düz metin basıyor şimdi onu değiştirelim ve kendi templates'imizi verelim
+    
 31- views.py -> return HttpResponse("anasayfa5") ' yi silip dahil ettiğimiz render fonksiyonunu yazıyoruz -> return render(request,"index.html")
     artık anasayfamız belirlediğimiz index.html sayfası oldu bu sayede 2 yöntemle url göndermeyi gördük (render ve HttpResponse)
 
 #DOCUMENTATION STATIC DOSYALAR İÇİN (https://docs.djangoproject.com/en/5.0/howto/static-files/)
 32- settings.py -> Siteden gördüğün üzere kullanabilmek için 2 adet işlem yapmak lazım
+
     1-  INSTALLED_APPS içinde " django.contrib.staticfiles " olması gerekiyor 
     2- STATIC_URL = "static/" olarak belirtmen gerekiyor 
     #ama şöyle güzel bir detay var biz startproject yaptığımızda django bunları bizim yerimize otomatikman yapıyor(ilk 2) sen sadece kontrol et var mı diye
     3- static klasörünü oluşturup ve içine  css,img,js dosyalarını koyabilirsin
 33- articles klasörünün altına static klasörünü oluşturduk ve içinede style.css dosyasını oluşturduk (örnek kodla çalıştırıp deniyelim)
+
 34- index.html -> dosyasına css için bağlantı linki oluşturuyoruz <head> etiketi içersine <link rel="stylesheet" href="../static/style.css"> yaptık
+
 35- index.html -> style.css içersine p {background: red;} yapmıştık o yüzden index'in içersine p etiketli deneme yazısı ekledik ve sitede arkaplanının değiştiğini kontrol ettik
+
     index.html sayfasına static eklemenin 3 yolu var birisi normal olarak üstteki şekilde ikincisi ile django komutuyla 
         1) <link rel="stylesheet" href="../static/style.css"> bağlantısıyla static dosyamızı belirttik
         2)  1.  {% load static %} kodunu ekledik
@@ -119,8 +135,11 @@
             3. index.html sayfasına <link rel="stylesheet" href="{% static 'style.css' %}"> ekledik
         # 3. işlem 2.olana çok benziyor çünkü aynı şey sadece aralarındaki fark static dosyası app içinde değil ana dizinde bulunuyor
 36- layout.html sayfası oluşturduk ve boostrap 4 cdn diye aratarak introduction için quick startı dahil ettik ( flask ile aynı işlem ) 
+
 37- layout.html -> div class container oluşturduk ve içine block oluşturduk bu sayede extend ettiğimizde içersine ekleme yapabileceğiz 
+
 38- index.html -> tüm kodları silip django komutu yani extend ekleyip layout.html'i belirttik ve block body'i ekleyip içersine deneme metin ekledik
+
     sitede görünüyor mu diye kontrol ettik ve göründü . Kısaca görünmesi için yaptıklarımız :
         1) views.py dosyasında index fonksiyonu oluşturduk
         2) urls.py dosyasında index fonksiyonunu import ettik ve url path'i oluşturup kök dizin için index fonksiyonunu çalıştırmasını belirttik
