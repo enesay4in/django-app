@@ -1,5 +1,3 @@
-Django blog-app adım adım nasıl yapılır?
-
 #BLOG PROJESİNİN ADIMLARI 
 
 1-  cmd -> cd onedrive/belgeler/py klasörünü seçtik (cd ile)
@@ -23,16 +21,13 @@ Django blog-app adım adım nasıl yapılır?
     eğer ki orada başka bilgi mesela articlenin başlığını değilde yazarını görüntülemek istersen 'return self.author' 
     mantığı anladın zaten oluşturduğun tablo elemanlarından herhangi birini döndürebilirsin
 #doküman -> https://docs.djangoproject.com/en/5.0/ref/contrib/admin/
-
 18- admin.py -> sayfasına gidip register işlemini daha komplike yaparak decorator ile ilişkilendirdik(orada anlattım ne yaptığımızı)
 19- admin.py -> dokümandan list display özelliğini bakarak article'nin sadece başlığını değil yazarını,başlığını ve oluşturulma tarihini gösterebilmeyi yapıyoruz
     zaten __str__ ile başlığı döndürüyorduk ama buradan title'ı silersen o fonksiyon işe yaramaz çünkü öncelik list displayda(yani buraya da ekle)
     bu da demek oluyor ki __str__ fonksiyonu işlevsiz kalıyor gerek yok ama ben silmiyorum dursun özel admin registeri kullanmadan nasıl yapıldığını görmek için
-    
 20- admin.py -> sayfasına gidip list_display_link ile başlığa ve yazara link özelliğini ekledik bu sayede tıklanınca güncellemeye gidecektir
 21- admin.py -> sayfasında gidip search_field özelliği ile arama işlevi ekledik ve title üzerinden aranılacağını belirttik
 22- admin.py -> sayfasına gidip list_filter ile içeriğin tarihlerine göre filtreleme özelliğini ekledik(istediğin filtreleme kullanabilirsin başlık vb.)
-
 #TERMİNAL ÜZERİNDEN YENİ KULLANICI VEYA MAKALE OLUŞTURMA
 23- yeni terminal açıyoruz -> ' python manage.py shell ' yazıyoruz çünkü django ve orm sorgularını yazabileceğimiz python shell'ine ihtiyacımız var 
 24- shell ->  (InteractiveConsole) için yaptığımız işlemler:
@@ -73,7 +68,6 @@ Django blog-app adım adım nasıl yapılır?
             kullanımı = sınıf_ismi.objects.filter(sütünismi__contains="içinde_geçen_aranılacak_harf_veya_kelime")
             dokümentasyon = https://docs.djangoproject.com/en/5.0/topics/db/queries/ 
 
-
 25- settings.py -> dosyasına gidip TEMPLATES kısmını buluyoruz ve oradan 'DIRS' : [] bölümüne html templateslerimizin olacağı klasörün adını giriyoruz
     yani templates yazıyoruz . Bunun sebebi ise django templates arayacağı zaman belirttiğimiz klasöre yani directory'e gidecektir. -> 'DIRS' : ['templates']
 26- html templateslerimizi koyacağımız klasörü oluşturuyoruz . Direkt ana klasörün içersine (blog_django) oluşturuyoruz
@@ -84,7 +78,6 @@ Django blog-app adım adım nasıl yapılır?
     bu denemeydi çünkü şuanda index fonksiyonu sadece HttpResponse ile ekrana düz metin basıyor şimdi onu değiştirelim ve kendi templates'imizi verelim
 31- views.py -> return HttpResponse("anasayfa5") ' yi silip dahil ettiğimiz render fonksiyonunu yazıyoruz -> return render(request,"index.html")
     artık anasayfamız belirlediğimiz index.html sayfası oldu bu sayede 2 yöntemle url göndermeyi gördük (render ve HttpResponse)
-
 
 #DOCUMENTATION STATIC DOSYALAR İÇİN (https://docs.djangoproject.com/en/5.0/howto/static-files/)
 32- settings.py -> Siteden gördüğün üzere kullanabilmek için 2 adet işlem yapmak lazım
@@ -122,8 +115,8 @@ Django blog-app adım adım nasıl yapılır?
     1) templates altına about.html dosyasını açtık ve içine extend layout.html ve block body ekledik
     2) views.py kısmına gidip def about fonksiyonu ekleyip render about.html olduğunu belirttik
     3) urls.py kısmına gidip path için url'yi /about olarak ve fonksiyonu da views.about olduğunu belirttik (path bittikten sonra virgül atmayı unutma)
-    
 43- Siteye veri gönderme işlemi nasıl yapılır?
+
     oluşturduğumuz fonksiyon içersindeki Render() hangi değerleri alır üstüne gelip bakabilirsin
     veri göndermek için üçüncü değer yani Context olanı veriyoruz ama sözlük olarak girmemiz gerekiyor örneğin:
     örnek 1) 
@@ -140,18 +133,19 @@ Django blog-app adım adım nasıl yapılır?
             <p> {{title}} --> context başlığı</p>
             <p> {{name}} --> context ismi</p>
             <p> {{message}} --> context mesajı</p>  yaparak sitede bunları görüntüleyebiliriz
+
     örnek 2)
         context= {
             "numbers" : [1,2,3,4,5,6,7,8,9],
             }
     return render(request,'index.html',context)
+
     index.html -> 
     <ul>
         {% for number in numbers  %}
             <li>{{number}}</li>
         {% endfor %}
     </ul>   yaparsak for döngüsüyle liste içindeki her elemanı sitede listeleyecektir 
-
 
 44- Dinamik URL nasıl yapılır ?
     1) views.py -> 
@@ -180,6 +174,7 @@ Django blog-app adım adım nasıl yapılır?
     Çünkü user uygulamamızın içersinde model oluşturmadık ve djangonun kendi user modelini kullandık
     Django zaten kendisi belirttiği uygulamaları migrate ettiği için bizim uygulamamızın içinde model olmadığından hata vermeden çalıştı
     Ama biz yine de şimdi djangoya belirtiyoruz çünkü uygulama içersinde ileride model oluşturabiliriz
+
     settings.py -> içersine girip "INSTALLED_APPS" listesi içersine "user",   diye ekledik
 
 48- User tablasu için form classlarını oluşturacağımız dosyayı açıyoruz
@@ -188,11 +183,13 @@ Django blog-app adım adım nasıl yapılır?
 
 49- views.py -> forms.py üzerindeki işlemleri bitirdikten sonra oluşturduğumuz formu sitemizde göstermemiz gerekiyor
     şuan sadece formu sitede göstermek için bu işlemleri yapacağım , detaylarını sonra göstereceğim
+
     register fonksiyonu için:
     from .forms import RegisterForm yaparak bulunan dizinden forms modülü içindeki RegisterForm'unu import ettik
     form = RegisterForm() yaparak boş bir sınıf objesi oluşturduk
     context sözlük oluşturup formu(boş sınıf objesi çünkü amaç sadece göstermek) içine ekledik
     context'i siteye gönderdik
+
     register.html -> sayfasına gidip form etiketi açıp içine sitede formumuzu göstermek için django kodunu yazıyoruz '{{form.as_p}}'
     bu kod sayesinde oluşturduğumuz formu sitede gösterebiliriz
 
@@ -202,6 +199,7 @@ Django blog-app adım adım nasıl yapılır?
 
 51- CSRF ->  (Cross Site Request Forgery) form işlemini korumak için django tarafından güvenlik protokolü sayılabilir
     register.html sayfasındaki form için views.py de ki işlemlerimiz bitti şimdi bu hatayı alıyoruz , onu da şöyle düzeltebiliriz
+
     register.html -> sayfasına gidip form etiketi içersine '{% csrf_token %}' ekliyoruz ve django ataklardan böyle kurtuluyor
 
 52- DJANGO MESSAGES (flask flash message ile benzer) bilgilendirme, ekranda mesaj gösterme
@@ -217,9 +215,12 @@ Django blog-app adım adım nasıl yapılır?
         layout.html -> dokümentasyonda ki django message display kodunu body > div içine ekliyoruz bu sayede yukarıda ama navbar'ın altına gözükecek
     4- aslında işlem tamamlandı ama mesajı daha güzel hale getirmek için ul etiketini silip li'yi div yaptım ve 
        class'ını alert alert-{mesaj} yaparak views.py de messages.mesaj_türü olarak belirttiğimiz tür neyse onu bastırsın diye düzenledik
+
     !! EĞER Kİ DANGER MESAJINI KULLANMAK İSTERSEK NASIL YAPARIZ ?
     - önce mantığı anlatayım : dangeri kullanmak için herhangi bir mesaj türüne sen danger ol diyebiliriz kabaca x türü çağrılınca onu danger'a çeviriyorsun
+
     nasıl yapılır bunu kendi yaptığımız django message display da gösteriyorum
+
     {% if messages %}
             {% for message in messages %}
                 {% if message.tags == "info" %}
@@ -229,6 +230,7 @@ Django blog-app adım adım nasıl yapılır?
                 {% endif %}
             {% endfor %}
     {% endif %}
+
     # ne yaptık basitçe anlatmak gerekirse, 
     eğer mesaj etiketi info olarak gelirse onu dangera çevir , aksi takdirde ne geldiyse onu ekrana bastır dedik 
     bu sayede belirli bir türü dangera çevirdik(ben sayfada info kullandığım için onu gösterdim istediğin herhangi birisi olur)
@@ -278,6 +280,7 @@ Django blog-app adım adım nasıl yapılır?
       fakat kontrol paneli gibi makalelerin kontrolünü yaptığımız sayfaya herkesin erişmesini session ile engelliyoruz daha doğrusu onun kontrolü ile izin vermiyoruz
     1- Navbar.html -> sayfasındaki butonları düzenledik normalde ben hep düzenliyorum ama buraya yazmıyordum şimdi belirttiklerimi yap yeterli
       > sağ taraf için -> soldan sağa sıralıyorum --> admin-kontrol paneli-kayıt ol-giriş yap-çıkış yap (bunları ekledim)
+
     !! KONTROLÜ NE YAPAR? -> request.user.is_authenticated -> True veya False döner , True ise giriş yapıldı False ise giriş yapılmadı demektir
     2- navbar'a gidip eğer kullanıcı giriş yaptıysa sadece çıkış yapı ve kontrol panelini göster(giriş yap ve kayıt olu gösterme) gibi kullanımlar yapıyoruz
       > {% if request.user.is_authenticated %} yani kullanıcı giriş yaptıysa true dön yapmadıysa false dön
@@ -288,6 +291,7 @@ Django blog-app adım adım nasıl yapılır?
 58- KONTROL PANELİNİ OLUŞTURUYORUZ (MAKALELERİ DÜZENLEYECEĞİZ O YÜZDEN ARTICLE UYGULAMASI ÜZERİNDEN DEVAM)
     1- article > views.py -> def dashboard oluşturuyoruz
     2- article > urls.py -> path('dashboard/',views.dashboard,name= 'dashboard'), urlpatternse ekliyoruz
+
     !! şöyle bir önemli nokta var hatırlamazsın diye yazıyorum biz blog_django > urls.py dosyasında include işlemi yapmıştık
     path('articles/',include("article.urls")), --> yani oluşturduğumuz fonksiyon /dashboard ile değil article/dashboard ile çalışacak
     diğer yaptığımız create mantığı gibi düşün (45.madde de belirttiğim gibi article > urls.py dosyasında anlattım mantığını)
@@ -299,6 +303,7 @@ Django blog-app adım adım nasıl yapılır?
     1- article > urls.py -> path('addarticle/',views.addarticle,name= 'addarticle'), urlpatternse ekliyoruz
     2- article > views.py -> def addarticle oluşturduk
     3- templates > addarticle.html oluşturduk ve  extends layout girdikten sonra block body da ekledik
+
     4- article > forms.py dosyasını oluşturduk ve oradaki işlemleri yaptık # bunu orada anlattım inceleyip buradan devam et
     5- article > views.py ->  from .forms import ArticleForm  yaparak modelimizi dahil ediyoruz
        > form = ArticleForm() yaparak sadece get request yapılınca formu gösteriyoruz ve işlem bitiyor 
@@ -346,13 +351,17 @@ siteye gittiği için if articles true olacak çünkü gelen değer boş olsa da
 bunu nasıl çözeriz ? bunun mantığını get_object_or_404 ile çözüyoruz hemen altta anlatıyorum ve bu 62-63.maddeler birleşik sayıldığı anlamına geliyor
 
 63- GET OBJECT OR 404 (article > views.py ) 
+
     - erişilen sayfaya ait id  numarasıyla eşleşen makale olmadığında boş form bastırmak yerine 404 eror sayfası bastırmak için kullanacağız
     - Kullanımı : get_object_or_404(model_adı,sorgu)# verilen id ile aranan modelde eşleşen varsa verir,yoksa 404 hatası bastırır
+
+
     1- Önce import ediyoruz 'from django.shortcuts import get_object_or_404'
     2- sonra makalemizi bulup article objesine atıyoruz 'article = get_object_or_404(Article,id = id)'
     !! debug=True olduğu için page not found hatası verecektir, normal siteye attığımızda 404 hatası verecektir(olması gereken) 
 
 64- BOOSTRAP DOSYALARINI DÜZENLEME
+
     1- Statik altında ki style.css dosyasını siliyorum
     2- Statik altına css ve js adında 2 klasör açıyorum (css ve javascript)
     3- layout.html sayfasında kullandığımız bootstrap script dosyalarının isimlerini alıyoruz ve internetten indiriyoruz
@@ -367,6 +376,7 @@ bunu nasıl çözeriz ? bunun mantığını get_object_or_404 ile çözüyoruz h
     7- body altına script ekleyip src'sini "{% static 'js/bootstrap.min.js' %}" ekliyoruz
     8- body altına script ekleyip src'sini "{% static 'js/jquery-3.2.1.min.js' %}" ekliyoruz
     ! aslında şuan işlemimiz bitti fakat biz djangonun bize önerdiği bütün css ve js dosyalarını bir klasörde birleştirmesini yapıyoruz
+
     9- django static files yazarak aratıyoruz ve ilk bağlantıya giriyoruz
        1- static url olarak settingse kaydetmiştik  ve layout.htmle {% load static %} yaptık zaten
        2- STATICFILES_DIRS = [BASE_DIR / "static",] de yapmıştık zaten (bu ikisi sayesinde js ve staticleri kullanıyorduk zaten)
@@ -379,6 +389,7 @@ bunu nasıl çözeriz ? bunun mantığını get_object_or_404 ile çözüyoruz h
        kısaca djangonun istediği düzeni static dosyaları için yaptık ve böylelikle erişim daha kolay olacaktır
 
 65- CK EDİTÖR EKLEMEK (FORMLARI DAHA GÜZEL GÖSTERMEK VE DAHA İŞLEVSEL HALE GETİRMEK)
+
     - 'django ckeditor' diye arattığımızda çıkan ilk siteye(github) giriyoruz ve  adımları yerine getiriyoruz
     kurulum(Installation):
        1) ilk önce bilgisayarımıza indiriyoruz 'pip install django-ckeditor'
@@ -404,16 +415,20 @@ bunu nasıl çözeriz ? bunun mantığını get_object_or_404 ile çözüyoruz h
         buralarda birkaç sorun vardı çözmeye baya uğraştım ama neler yaptığımı tam hatırlamıyorum devamını o yüzden yazmıyorum
 
 66- FILE UPLOAD (DOSYA YÜKLEME İŞLEMİ)
+
     !! dokümentasyon paylaşıyorum orada anlatım var ve biz orası üzerinden gidiyoruz
     (https://simpleisbetterthancomplex.com/tutorial/2016/08/01/how-to-upload-files-with-django.html)
+
     1- Formlarımızda gönderdiğimiz dosyalarımız veya resimlerimiz 'request.FILES' içinde bulunuyor (artık postun içersinde değil burada bulunuyor)
        bunları almak içinse bizim formumuza extradan '  enctype="multipart/form-data"  ' eklememiz gerekiyor , eğer eklemezsek dosyayı yüklesek bile
        request.FILES her zaman boş geliyor
+
        Daha sonra biz bu formu POST şeklinde SUBMIT ettiğimiz zaman django tarafından request.FILES üzerinden bu dosyalarımıza erişebiliyoruz
        -Sonradan modellerimizde artık bir tane FILE alanı olacağı için bunu istersek FileField veya ImageField şeklinde oluşturabiliriz
         FileField: Bütün dosyalarımızı(pdf,video,fotoğraf vb.) upload etmek için kullanılıyor
         ImageField: Sadece fotoğraf yüklemek için kullanılır ayrıca ImageField'ın çalışması için extra bir modüle daha ihtiyacımız oluyor( PILLOW )
         !! Önceki derslerden hakimsen zaten pillow modülünü yapmıştık hatırlıyorsundur ve bilgisayarda yüklüdür (değilse 'pip install pillow')
+
     2- Dosyalarımızı yüklediğimiz zaman bir yerde birikmesi saklanması gerekiyor bunu da MEDIA klasörü açarak yapacağız
         settings.py -> dosyasına gidip 2 tane tanımlama ekliyoruz (kaynaktan bakabilirsin)
         -MEDIA_URL = '/media/'
@@ -421,9 +436,11 @@ bunu nasıl çözeriz ? bunun mantığını get_object_or_404 ile çözüyoruz h
         !! media klasörünü oluşturmaya gerek yok biz herhangi bir dosya upload ettiğimiz zaman django onu otomatik olarak oluşturacaktır
     3- Python dosyalarından media_url ve media_root'a erişmemiz için bu işlemleri yapmamız gerekiyor
         blog_django > urls.py ->
+
         -from django.conf import settings
         -from django.conf.urls.static import static
         - bunları dahil ettikten sonra en alta şunu ekliyoruz 'urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)'
+
     4- Bizim media_urlmize templates üzerinden erişmemiz için templates değişkenine bunu belirtmemiz gerekiyor
         settings.py -> templates listesine diğerlerinin altına ekliyoruz
         -  'django.template.context_processors.media',
@@ -431,6 +448,7 @@ bunu nasıl çözeriz ? bunun mantığını get_object_or_404 ile çözüyoruz h
         #Çünkü media url'sini dinamik olarak veriyoruz fakat Django sayfalarını statik olarak derlediğinde media url'si null olur.
         Çünkü biz addarticle.html sayfasında formumuzu göndereceğiz(image upload yapacağız) ancak başka bir dosyada bu image göstermemiz gerekiyor
         onun için bu işlemi yapıyoruz
+
     5- İşlemleri bitirdikten sonra django uygulamasını internetten indiriyoruz. 'Django clean_up' diye aratıyoruz ve pypi sitesine giriyoruz
        !! ne işe yarar? eğer makalemizde resim varsa ve biz makaleyi silersek bu program otomatik olarak ona bağlı medyaları yani resim vb dosyalarını
        da siler bu sayede programda artık kalmaz ve kalıcı silinme işlemini gerçekleştirir.
@@ -439,33 +457,41 @@ bunu nasıl çözeriz ? bunun mantığını get_object_or_404 ile çözüyoruz h
        - INSTALLED_APPS listesine ('django_cleanup',) ekliyoruz
        - şuan bunu yaptık ve artık models.py dosyasına media inputu ekleyeceğiz ama bu durum modelimizi değiştirdiğimiz anlamına geliyor
        djangoya bunu belirtmezsek hata verecektir o yüzden şimdi ki adımlar çok önemli dikkatli ol
+    
     6- article > models.py -> article_image ekledik ve gerekli parametreleri verdik .
        !! Artık modelimiz değişti bunu djangoya belirtmemiz ve veritabanındaki tablo yapısını değiştirmemiz gerekiyor
+
     7- terminal -> 
        -'python manage.py makemigrations' yaparak (installed apps) listesini migrate ediyoruz
        -'python manage.py migrate' yaparak da bunu veritabanında işlemiş oluyoruz 
        !! bu iki işlem sayesinde veritabanı ve modeli değiştirdiğimizi belirttik 
+
     8- önceden oluşturduğumuz modelden alıntılayarak yeni modeli kolay oluşturma işlemi yapmıştık 
        - article > forms.py -> dosyasında addarticle için sadece title ve content eklemiştik onu düzenleyerek artık orada medyayıda görüntülemek istiyoruz
        - fields = ['title', 'content','article_image']
        - işlemlerden sonra kaydettiğini kontrol edip siteye gidip addarticle kısmına bakabilirsin şuanda oraya geldi
+    
     9- Artık işlemlerimiz neredeyse bitti , resim eklemek istersek bunu nasıl yapıyoruz
        - article > views.py -> formumuz request.post or none olduğu için files kısmını algılamıyor o yüzden onun yanına ekleme yapıyoruz
        - def addarticle(request): 
             form = ArticleForm(request.POST or None,request.FILES or None)
+
     10- Normal işleyişte buraya kadar her şey iyi fakat makale eklemeyi denediğimizde resim yüklesek dahi media klasörü oluşmuyor ama hata da vermiyordu
         biraz araştırdım ve sıkıntının çözümü formumuzu encytpe etmek olduğunu buldum . Nasıl yaparız ?
         -addarticle.html -> sayfasına gidip formumuzu şu şekil değiştiriyoruz 
         -                  <form method="POST" enctype="multipart/form-data">
         - şimdi tekrar bir makaleye resim eklemeyi dene ve media klasörü oluştuğunu ve içine resmin geldiğini göreceksin
         - unutma henüz siteye resim görüntülemeyi eklemedik o yüzden makaleyi görüntülerken göremezsin :) (sonraki adımda onu yapacağız)
+
     11- Eklediğimiz resim dosyasını details sayfasında göstermek
         - Detail sayfasında resmin urlsini almak ve bu sayede sitede göstermek için gerekli izin ve işlemleri önceden yaptık zaten şimdi sadece eklemek kaldı
         - Details.html -> sayfasına gidip image kısmının kaynağına python verisi olarak article_image.url'sini ekliyoruz 
         - bu işlemden sonra makale sayfasına gidip resmi görüntüleyebilirsin işlem başarıyla tamamlandı 
+
     12- Yaptığımız işlemlere göre eğer resmi olmayan makale görüntülemeye çalışırsak hata alacağız çünkü onun article_image objesi olmadığı için
         - Peki bunu nasıl düzeltiriz ? details.html sayfasında resmi bastırmadan önce koşula sokarak basit bir şekilde çözebiliriz
         - eğer article_image varsa buraya gir ve sonra resmi bastır , yoksa zaten bastırma :)
+    
     13- Son olarak eğer ki ben makaleyi silersem media klasöründeki resim dosyası da gidecek mi hemen kontrol ediyoruz 
         - Admin paneline gidip oradan resimli makalemizi siliyoruz(sorduğunu duyar gibiyim kontrol paneline henüz silmeyi eklemedik çünkü)
         - Resimli makaleyi seçip sildikten sonra media klasörünü kontrol et ve django_cleanup sayesinde onun da silindiğini göreceksin
@@ -479,6 +505,7 @@ bunu nasıl çözeriz ? bunun mantığını get_object_or_404 ile çözüyoruz h
 68- MAKALE GÜNCELLEME SAYFASI EKLEMEK
     !! önceden kontrol paneline eklediğimiz güncelle butonuna işlevsellik katacağız, önceden oluşturduğumuz makeleyi düzenlemeyi yapacağız
     ve veritabanına kaydetmeyi halledeceğiz . 3 adımda güncelleme işlemini yapmak (aynısı gibi silme işlemini de yaptıktan sonra dashboard bitiyor)
+    
     1) article > urls.py -> pathimizi ekliyoruz "  path('update/<int:id>/',views.updatearticle,name= 'update'), "
     2) article > views.py -> fonksiyonumuzu oluşturuyoruz return render(request,"update.html")
     !!      (sonradan içeriğini ayarlıcaz şimdi ilk temeli ayarlıyoruz )
@@ -492,6 +519,7 @@ bunu nasıl çözeriz ? bunun mantığını get_object_or_404 ile çözüyoruz h
 
 69- MAKALE SİLME SAYFASI EKLEMEK
     !! adımlar tıpkı güncellemede ki gibi kolay
+    
     1) article > urls.py -> pathimizi ekliyoruz "  path('delete/<int:id>/',views.deletearticle,name= 'delete'),    "
     2) article > views.py -> fonksiyonumuzu oluşturuyoruz 
        - silme işlemi çok basit , id ile eşleşen değeri bulup article objesine atadık ve terminalde yaptığımız gibi article.delete() yaptık
@@ -503,23 +531,30 @@ bunu nasıl çözeriz ? bunun mantığını get_object_or_404 ile çözüyoruz h
 
 70- LOGIN REQUIRED (KULLANICI OTURUM KONTROLÜ)
     !! bazı url adresleri sadece kullanıcılar oturum açtıysa girilebilir olması gerekiyor onu da bu dekoratör sayesinde yapıyoruz
+
+
     flasktan hatırlarsın orada yapmıştık ve bu blog uygulamasında da navbarda mevcut zaten giriş yap ve çıkış yap gibi butonlar için
     Bunu nerede kullanacağız? ne için yapıyoruz? 
     Mesela şuan programda giriş yapmasak bile articles/addarticles sayfasına yani makale ekleme sayfasına girebiliyoruz 
     tabii ki makale eklemeye çalışırkan hata verecektir (çünkü django makale eklerken giriş yapan kullanıcının adını otomatik yazar olarak alıyordu)
     biz de bu sayfaya girmeyi bu dekoratör ile engelleyeceğiz baya boş yaptım ama temeli hallettik
+
     !! dokümentasyon: ' login required django' diye aratıp ilk siteye gir ve ctrl+f ile 'login_required' aratıp modülün nasıl kullanıldığını incele
+
     1) Django tarafından hazır olarak kullanılan dekoratörü ilk olarak dahil ediyoruz
        - article > views.py -> 'from django.contrib.auth.decorators import login_required'
     2) Kullanmak istediğimiz fonksiyonların hemen üzerine dahil ettiğimiz dekoratörü ekliyoruz 
        - dashboard, addarticle, deletearticle, updatearticle -> @login_required
+    
     !! aslında kullanımı bu kadar basit fakat bu kullanımda kullanıcı girişi yapılmadıysa ve belirttiğimiz sitelere girerse 404 hatası verecektir
     biz 404 hatası vermesini değil login(giriş) ekranına gitmesini istersek şöyle yapıyoruz
+
     3) dekoratörün(login_url değerini = 'app:url_name' ile belirtiyoruz ve belirttiğimiz name değişkeninin bağlı olduğu fonksiyonun urlsine yönlendiriyor)
        - @login_required(login_url="user:loginUser")
        - bu sayede eğer giriş yapılmadıysa login ekranına atacak 
 
 71- TEKNİK AKSAKLIKLARI DÜZELTTİM
+
     -login yapmış bir kullanıcı tekrar login yapabiliyordu user > views.py kısmına yeni bir dekoratör ekledim bu sayede kullanıcı:
      1) login yaptıysa terkar yapamıyor
      2) login yapmadıysa logout yapamıyor
@@ -532,6 +567,7 @@ bunu nasıl çözeriz ? bunun mantığını get_object_or_404 ile çözüyoruz h
 
 72- MAKALELER SAYFASI OLUŞTURMAK (yayınlanmış tüm makaleler olucak yani kişiye özel kontrol paneli değil)
     !! makale sayfasını dersde ki gibi aynen yapmadım kafama göre yaptım (ders-231)
+
     1) article > urls.py -> yeni path oluşturuyoruz ama boş çünkü kök dizin olsun bu sayede makale urlsi -> /articles olacaktır
      -path('',views.articles,name= 'articles'),
     2) article > views.py -> articles fonksiyonumuzu oluşturuyoruz
@@ -544,16 +580,19 @@ bunu nasıl çözeriz ? bunun mantığını get_object_or_404 ile çözüyoruz h
 73- CODE SNIPPETS ÖZELLİĞİ EKLEMEK 
     !! kodlarımızı türlerine göre renklendiriyor , örneğin fonksiyon koşul vb. Zaten flaskta yapmıştık aynısını tekrar burada da yapıyoruz
     Yapma sebebimiz makalelerimizde kod paylaşırsak daha güzel gözükmesi ve anlaşılır olması 
+
     - 'Google code prettify' diye aratmak ve ilk github sitesine girmek
     - Setup ve usage (kurulum ve kullanım) kısımlarını inceleyerek adımlara devam ediyoruz
     - Sitede verdiği scripti layout.html sayfasına koyarsak eğer her sayfaya koymamıza gerek kalmaz çünkü hepsi layout.htmlden extend ediliyor.
     - Kullanım: Verilen kodu layouta ekliyoruz ve makale eklerken kaynak kısmına girip <pre class> etiketini(sitedeki) kullanarak ekliyoruz
       böylelikle pre içine girdiğimiz kodlar diline göre renklendirilecek ve daha anlaşılır olacak
     - JAVA ve PYTHON KODLARINI RENKLENDİRİR 
+
     - layout.html -> '<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>' 
     - makale ekle -> <pre class="prettyprint">  KODLAR ... </pre>
     
 74- DJANGO TEMPLATES FILTRELERİ (jinja 2 templates)
+
     - 'Django template filter' diye aratıyoruz ve ilk django sitemize giriyoruz (Built-in template tags and filters)
     - Kaynağı inceliyoruz , Etiketlerin ve filtrelerin olduğunu görüyoruz 
     !! Örnek kullandığımız etiketler : load, csrf token, include vb.
@@ -565,9 +604,12 @@ bunu nasıl çözeriz ? bunun mantığını get_object_or_404 ile çözüyoruz h
     Bu işlem, metni daha okunaklı hale getirir ve gereksiz bilgiyi keser.
     Normalde programda makaleler kısmında kullanmam gerekiyor fakat ben farklı makaleler sayfası yaptım ve bunu ekleyince güzel durmuyor 
     o yüzden programıma eklemiyorum , sen istersen ekleyebilirsin . Nasıl yapılıyor ?
+
     - Diğer safe filtresi gibi kullanıyoruz jinja template içine |filtre_ismi yapıyoruz
     ! {{ value|truncatewords:2 }} --> metnin ilk 2 kelimesini göster ve sonrasına ... koy (devamı... gibi) 
     ! {{article.content | safe | truncatewords:3}}
+
+
     - Biz sonuna sadece ... koymak değil devamını oku özelliği koyacağız ve tıklandığında makalenin devamı gözükecek
       Bunu nasıl yaparız tabiki yönlendirme yaparak oraya bir a etiketi koyup linkini makalenin id'si yaparız ismini devamını oku yaparız olur
       istersek class'ını btn btn-warning yapıp style içine float: right; da yaparsak sağ tarafta durur tıklayınca devamını oku gibi olur
@@ -576,57 +618,83 @@ bunu nasıl çözeriz ? bunun mantığını get_object_or_404 ile çözüyoruz h
 
 
 75- ARAMA ÇUBUĞU EKLEMEK (articles.html sayfasına)
+
     !! şimdi derste bu articles.html için devam ediyor ve yaptıklarının üzerine ekliyor ve ben o şekildeyapmadığım için
     aynı kendi yaptığımın üzerine gördüklerimi ilave edeceğim . Zaten mantık aynı makaleler burada görünecek ve arama sonucu
     aradığımız makaleyi getirecek ben de bu işlemi onun gibi veya ona benzer yapacağım
+
     - Önce flasktaki arama butonu yani formumuzu çekiyoruz , sen uğraşma diye buraya atıyorum 
         <form action="/search" method="POST" style="float: right;" >
         <input type="text" maxlength="64" name="keyword" placeholder="ara">
         <button type="submit" class="btn btn-primary btn-sm">Ara</button>
         </form> #ben form style float değerini right yaptım sağda dursun diye istersen silebilirsin
+
     !! CSRF TOKEN EKLEMEYİ SAKIN UNUTMA YOKSA FORMUN DJANGODA ÇALIŞMAZ O YÜZDEN FORMUN İÇİNE EKLİYORUZ -> {% csrf_token %}
+    
     - Normalde yaptığımız gibi yukarıda formumuz var post işlemiyle yapıyor falan filan fakat şimdi yeni bir şey öğreneceğiz 
       yapacağımız işlem formumuzun get request ile aynı sayfada işlem yapmasını sağlamak o yüzden formumuzdaki action ve post methodunu kaldırıyoruz
       ki zaten sen articles.html sayfasını incelersen formun son halini görebilirsin ama benim anlatmaya çalıştığım o hale gelirken ki adımlar.
+
     - Get request kullanırken adres çubuğunda gönderdiğimiz veriler gözükeceği için arama için kullanılabilir fakat şifre veya önemli bilgiler 
       içeren durumlarda get request yapmak mantıksız bir hareteket olacaktır , bu dikkat edilmesi gereken bir unsurdur lütfen unutma
+
     - Artık hazırız şimdi gönderdiğimiz keyword'ü yani yaptığımız get request sonucu url çubuğuna daha doğrusu arama kutusuna gönderilen değeri
       views.py üzerinden işleme alıyoruz
+
       adımlar : öncelikle siteye yapılan get modununun get fonksiyonu ile gönderilen değeri alıyoruz ve objeye atıyoruz
       ! eğer ki siteye get yapılmış fakat arama çubuğu ile alakası yoksa bunu da şöyle yapıyoruz
       if keyword : # yani objemiz true mu dönüyor false mi bu koşulla kontrol edebiliriz
+
       article > views.py ->    
     1)  keyword = request.Get.get("keyword")
         if keyword: pass
+    
     2) şimdiyse bu atadığımız veriye göre veri tabanında filtreleme işlemi yapmamız gerekiyor . if koşulu içine
         articles = Article.objects.filter(title__contains = keyword) # FİLTER İÇİNDEKİ İŞLEMLER : 
         # title__contains -> başlıkların içinde geçen anlamında kullanılır ve eşitlediğimiz değeri başlıkların içinde arar
+
         return render(request,'articles.html',{'articles':articles}) -> yaparak işlemimizi bitiriyoruz
 
 76- URL'LERİMİZİ DİNAMİK HALE GETİRME ( TÜM LİNKLERİ DİNAMİK YAPMAK )
+
     Birkaç kere dinamik url olarak kullandık fakat çoğunluğu statik tek adresli linkler şimdi ise hepsini dinamik hale nasıl getiririz onu göreceğiz
+
     -Herhangi bir path içinde url değişikliği yaptığımızda onun bağlı olduğu tüm html sayfalarındaki linki de düzeltmemiz gerekiyor
      tabii bu işlemi  büyük programlarda da yapmak  güç istiyor ancak biz bunu engellemek için pathlerdeki name değişkenlerini kullanabiliriz
      bu sayede path'e bağlı link değişse bile o name sayesinde html sayfası yeni linki kullanacaktır 
+
     - Kısaca: Html sayfalarında yönlendirmek için link kullanırken artık path içindeki name değişkenini vereceğiz
       bu sayede link değişse bile name aynı olacaktır 
+
     - Kullanımı: "{% 'name' %}" -> name değişkeni ana uygulama içersindeydi direkt çağrılabilir fakaat
       Kullannım 2 : "{% 'app:name' %}" -> name değişkeni sonradan oluşturduğun uygulama(app) içersindeyse de uygulama_ismi:name_ismi olarak kullanılır
+
+
       Örnek: <a class="navbar-brand" href="/">Blog Sayfam</a> -> bu önceki navbarda ki ana sayfaya gönderen butondu şimdi aynısını yapıyoruz
       <a class="navbar-brand" href="{% url 'index' %}">Blog Sayfam</a> --> bu da url tag'i ile dinamik olarak değiştirdiğimiz
+
       Örnek 2 : şimdi farklı app içersindeki name değişkeninin linkini nasıl dinamikleştiririz onu görelim 
       <a class="nav-link" href="/articles">Makaleler</a> --> linkin önceki hali (include olan link bu unutma)
       <a class="nav-link" href="{% url 'article:articles' %}">Makaleler</a> --> bu da makaleler sayfasının dinamik hale gelmiş urlsi
+
+
       Eğer ki önceden oluşturduğumuz dinamik url adresini dinamikleştirmek istersek nasıl yaparız ?
     - Kullanımı : "{% url  'myapp:name' myapp.id %}" -> bu sayede aynı linki veriyor ve id ile dinamikleştiriyoruz
+
       - "{% url  'article:detail' article.id %}" -> bu tag şu anlama geliyor örnek : /articles/article/{{article.id}}
-        bu örnekte detail dememiz kafanı karıştırmasın article > urls.py sayfasında makaleyi görüntüleme pathinin name değişken ismi detail'dir    
+        bu örnekte detail dememiz kafanı karıştırmasın article > urls.py sayfasında makaleyi görüntüleme pathinin name değişken ismi detail'dir
+    
+
+
+
     1) İşlemleri tüm urls.py dosyalarında yapacağız -> article, user ve blog_django > urls.py  sayfalarını aç
     2) Yukarıda gösterdiğim gibi önceden oluşturduğumuz hazır linkleri , önceden oluşturduğumuz pathlerin içindeki name değişkeni olarak belirttiğimiz
     değeri belirt ve bu kadar artık linki değiştirsen dahi sitede otomatik olarak değişcektir
+
     !! Konuyu örneklendirmek gerekirse : Html siteleri artık anahtara değil eve bağlı. Sen farklı anahtarla da girsen ev aynı ev
 
 77- MAKALELELER İÇİN YORUM KISMI EKLEMEK ( COMMENT MODELİ VE COMMENT FORMU )
+
     1) article > models.py -> yorumlar için yeni model oluşturuyoruz
     2) article > admin.py -> comment modelimizi dahil ediyor ve sonrasında register ediyoruz
        -from .models import Article,Comment
@@ -634,9 +702,12 @@ bunu nasıl çözeriz ? bunun mantığını get_object_or_404 ile çözüyoruz h
     3) modelde ve admin panelinde değişiklik yaptığımız için djangoya bunu söylüyoruz -> 
        - terminal -> python manage.py makemigrations # - Create model Comment
        - terminal -> python manage.py migrate        # - Applying article.0003_comment... OK
+
        ! şuanda comment tablomuz oluştu admin paneline giderek kontrol edebilirsin(sitede navbarda admin linki var)
+
     4) şimdi comment formu oluşturup sitemize ekleyeceğiz ve o formun verilerini veritabanındakilerden çekeceğiz
        - templates > includes > posttemplate.html -> bu sayfadaki sadece COMMENT FORM'u alıyoruz (ben aşağıda veriyorum karışmasın uğraşma)
+
        <div class="card my-4">
                     <h5 class="card-header">Yorum ekle:</h5>
                      <div class="card-body">
@@ -654,6 +725,7 @@ bunu nasıl çözeriz ? bunun mantığını get_object_or_404 ile çözüyoruz h
                         <button type="submit" class="btn btn-primary">Gönder</button>
                      </form>   
                     </div>
+
         - formun actionuna baktığın üzere yeni html sayfası, path ve fonksiyon oluşturuyoruz
         - article > urls.py -> path('comment/<int:id>/',views.addcomment,name= 'comment'),
         - article > views.py -> def addcomment oluşturuyoruz(şimdilik pass ile)
@@ -662,6 +734,7 @@ bunu nasıl çözeriz ? bunun mantığını get_object_or_404 ile çözüyoruz h
         !! önceki arama işlemimizde get request ile işlem yapmıştık şimdi formumuz post olduğu için post request ile yapacağız
         - article > vies.py -> addcomment fonksiyonunu oluşturuyoruz, adımları detaylı olarak fonksiyon içinde gösterdim
         !! views.py üzerinde işlem yaparken yorum satırlarına dikkat et (reverse ve comment dahil ettik)
+
     5) Oluşturulan yorumları details sayfasında göstermek
         1) article > views.py -> def detail içersinde işlem yapıyoruz
           models.py dosyasında (related_name = "comments") olarak belirtmiştik şimdi o ilişki sayesinde erişebiliriz
@@ -683,7 +756,6 @@ bunu nasıl çözeriz ? bunun mantığını get_object_or_404 ile çözüyoruz h
                         <div class="alert alert-warning"> Bu makaleye henüz yorum yapılmadı.</div>
                     {% endif %}
           - bu kısmı çok anlatamadım o yüzden kodu direkt paylaştım unutmazsam incelerim tekrardan adım adım anlatırım 
-
 
 78- MAKELELER VE YORUMLARI SIRALAMA (ben created_date ve comment_date'e göre en son ekleneni yaptım)
 
