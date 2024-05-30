@@ -205,7 +205,8 @@
 45- article klasörü içinde urls.py dosyası açtık ve 2 urls.py dosyasını birleştirip, include edip bir link üzerinden fonksiyon çalıştırdık
     bu işlemi burada anlatmadım urls.py(article) dosyasında detaylı anlattım oraya bakabilirsin
 
-46- Yeni bir User uygulaması(app) oluşturuyoruz fakat models.py içine modül oluşturmayacağız çünkü django'nun user sınıfı ile oluşacaklar zaten. 
+46- Yeni bir User uygulaması(app) oluşturuyoruz fakat models.py içine modül oluşturmayacağız çünkü django'nun user sınıfı ile oluşacaklar zaten.
+
     (admin.py içine register yapmaya da gerek yok)
     1) terminal ->  python manage.py startapp user ile uygulamayı oluşturduk
     2) user klasörü içine urls.py dosyasını oluşturduk
@@ -251,6 +252,7 @@
     register.html -> sayfasına gidip form etiketi içersine '{% csrf_token %}' ekliyoruz ve django ataklardan böyle kurtuluyor
 
 52- DJANGO MESSAGES (flask flash message ile benzer) bilgilendirme, ekranda mesaj gösterme
+
     dokümentasyon: https://docs.djangoproject.com/en/5.0/ref/contrib/messages/
     normalde kullanabilmek için kurulum işlemi var ama biz django-admin startproject ile otomatik proje açtığımızdan django onları yapmıştı
     1- öncelikle import, dahil ediyoruz (kullanmak istediğin her sayfa için dahil etmek lazım '.py olanlara')
@@ -284,6 +286,7 @@
     bu sayede belirli bir türü dangera çevirdik(ben sayfada info kullandığım için onu gösterdim istediğin herhangi birisi olur)
 
 53- LOGİN SAYFASI/FORMU YAPIYORUM
+
     1- forms.py -> login formu oluşturduk 
     2- login.html -> form etiketi açıp içine csrf token , buton ve formumuzu yazdık
     3- views.py(user) ->
@@ -298,11 +301,13 @@
         6> eğer ki form.is_valid() ' e hiç girmemişse return render(request, 'login.html',context) yapıp aynı sayfaya yönlendiriyoruz
     
 54- Djangoda ki formlarımızı bootstrap 4 grids ile düzenliyoruz
+
     > siteden div etiketi alıp sonra login.html sayfasındaki verileri divin içine taşıyoruz
     > bu sayede responsive bir tasarım yaptık pencere küçülse de yazı hep pencere içinde ortalanıyor
     > sonraki işlemleri 55.maddede gösteriyorum orayı ayrı belirtme sebebim farklı bir konu ama ikisini bir yaptım
 
 55- DJANGO FORMLARIMIZA BOOTSTRAP DAHİL ETMEK İSTERSEK DJANGO CRISPY FORMS(3.parti yazılım) İLE YAPIYORUZ 
+
     1- ' pip install django-crispy-forms ' koduyla cmd üzerinden bilgisayara yüklüyoruz
     2- settings.py ->  installed apps listesi içersine crispy formsu ekliyoruz 
     INSTALLED_APPS = (
@@ -319,11 +324,13 @@
        2> CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4" diye en alta da ekledim # bunu kaldırınca da oluyor ama ne olur ne olmaz kalsın
        
 56- LOGOUT İŞLEMİNİ YAPIYORUM 
+
     1- views.py -> from django.contrib.auth import logout dahil ediyoruz
     2- views.py -> def logoutUser fonksiyonu içersine logout(request) eklememiz yeterli 
     3- views.py -> def logoutUser fonksiyonu içersine ekrana mesaj bastırabilirsin ve sonra redirect ile yönlendirme yapıyoruz , bu kadar
 
 57- SESSION KULLANIMI YANİ KULLANICI GİRİŞ YAPTI MI
+
     > Session neden kullanırız bazı sayfalar vardır tüm kullanıcılar görüntüleyebilir örnek veriyorum anasayfa çünkü içerik herkese yöneliktir
       fakat kontrol paneli gibi makalelerin kontrolünü yaptığımız sayfaya herkesin erişmesini session ile engelliyoruz daha doğrusu onun kontrolü ile izin vermiyoruz
     1- Navbar.html -> sayfasındaki butonları düzenledik normalde ben hep düzenliyorum ama buraya yazmıyordum şimdi belirttiklerimi yap yeterli
@@ -337,6 +344,7 @@
       > giriş yapılanlara -> çıkış yap,kontrol paneli ekledim | giriş yapılmayanlara -> kayıt ol,giriş yap ekledim | admin koşul içinde değil herkes görebilir
 
 58- KONTROL PANELİNİ OLUŞTURUYORUZ (MAKALELERİ DÜZENLEYECEĞİZ O YÜZDEN ARTICLE UYGULAMASI ÜZERİNDEN DEVAM)
+
     1- article > views.py -> def dashboard oluşturuyoruz
     2- article > urls.py -> path('dashboard/',views.dashboard,name= 'dashboard'), urlpatternse ekliyoruz
 
@@ -348,6 +356,7 @@
     böyleylikle dashboard işlemi şuanlık bitti , makale eklemek için sayfamızı ve sayfadaki formumuzu oluşturacağız
 
 59- MAKALE EKLEMEK VE FORM SAYFASINI OLUŞTURMAK
+
     1- article > urls.py -> path('addarticle/',views.addarticle,name= 'addarticle'), urlpatternse ekliyoruz
     2- article > views.py -> def addarticle oluşturduk
     3- templates > addarticle.html oluşturduk ve  extends layout girdikten sonra block body da ekledik
@@ -360,6 +369,7 @@
     6- addarticle.html -> formumuzu sitede göstereceğiz bunu login.html sayfasından kopya çekerek ekleyebilirsin(crispy olanı almayı unutma) 
 
 60- VERİTABANINA VERİ,MAKALE KAYDETMEK
+
     1- article > views.py -> 
        1.messages import ettik
        2.article = form.save(commit=False) yaparak sen formu gönder ben kendim kaydederim dedik
@@ -370,6 +380,7 @@
        7. zaten is.valid()'e girmediyse return render ile aynı sayfayı renderladık
 
 61- MAKALELERİ DASHBOARD(kontrol paneli) DA GÖSTERMEK(sadece giriş yapan kullanıcının kendi makaleleri)
+
     1- article > views.py -> adımları orada gösterdim def dashboard içinde
        - kısaca ne yaptık ilk önce modeli dahil ettik 
        - girilen kullanıcı adıyla eklenmiş makaleleri alıp articles objesine atadık
@@ -378,6 +389,7 @@
        - arama motoruna 'bootstrap 4 tables' yazıyoruz çıkan ilk siteden beğendiğin bir tabloyu al benim ki zaten kaynak dosyasında inceleyebilirsin
 
 62- MAKALE SAYFASINI DETAYLANDIRMAK ( dashboard düzenleme )
+
     1- Öncelikle başlığa link özelliği ekleyip ona tıklandığında o makaleyi görüntüleme sayfasına gitsin istiyorum
        - dashboard.html -> sayfasında article.title kısmına a etiketiyle statik id ekleyip birazdan oluşturacağım sayfaya yönlendiriyorum
     2- article > urls.py -> sayfasına o linke tıklandığında gidiceğimiz sayfanın path'ini veriyoruz 
@@ -393,10 +405,10 @@
        site biraz değişmiş o yüzden ekranın ortasında view source code var ona tıkla sonra githuba gidip dist > index.html içine bak ordan al rowu
        - sayfada gerekli düzenlemeleri yaptık(ana kod templates>includes>posttemplate içinde duruyor inceleyebilirsin)
        
-!! 
-makale sayfasında eğer id numarası ile makale yoksa bu sefer def detail içindeki obje boş dönecek ama yine de siteye gidecek
-siteye gittiği için if articles true olacak çünkü gelen değer boş olsa da var bu yüzden sitede hata mesajı vermek yerine formlarımız boş olarak gözükecek
-bunu nasıl çözeriz ? bunun mantığını get_object_or_404 ile çözüyoruz hemen altta anlatıyorum ve bu 62-63.maddeler birleşik sayıldığı anlamına geliyor
+    !! 
+    makale sayfasında eğer id numarası ile makale yoksa bu sefer def detail içindeki obje boş dönecek ama yine de siteye gidecek
+    siteye gittiği için if articles true olacak çünkü gelen değer boş olsa da var bu yüzden sitede hata mesajı vermek yerine formlarımız boş olarak gözükecek
+    bunu nasıl çözeriz ? bunun mantığını get_object_or_404 ile çözüyoruz hemen altta anlatıyorum ve bu 62-63.maddeler birleşik sayıldığı anlamına geliyor
 
 63- GET OBJECT OR 404 (article > views.py ) 
 
@@ -546,11 +558,13 @@ bunu nasıl çözeriz ? bunun mantığını get_object_or_404 ile çözüyoruz h
         - evet file upload baya karmaşık görükse de bu kadar basit aslında (hayır değil baya karmaşık ama çaktırma) haydi bakalım devam durmak yok
 
 67- MAKALE SAYFASINDA HTML İÇERİĞİ YORUMLAYICI OLARAK GÖSTERMİYOR , PROBLEMİNİ DÜZELTME
+
     - sayfaya italic , kalın yazı , ton değişikliği vb. şekilde eklersek ve görüntülediğimizde bunu göstermiyor kodları gösteriyordu hemen onu düzeltelim
     - details.html -> sayfasına gidip flaskda ki yaptığımız safe işlemini yapıyoruz
     - {{article.content | safe}} -> content bastırma işlemini safe olarak belirtiyoruz bu kadar
 
 68- MAKALE GÜNCELLEME SAYFASI EKLEMEK
+
     !! önceden kontrol paneline eklediğimiz güncelle butonuna işlevsellik katacağız, önceden oluşturduğumuz makeleyi düzenlemeyi yapacağız
     ve veritabanına kaydetmeyi halledeceğiz . 3 adımda güncelleme işlemini yapmak (aynısı gibi silme işlemini de yaptıktan sonra dashboard bitiyor)
     
@@ -565,7 +579,9 @@ bunu nasıl çözeriz ? bunun mantığını get_object_or_404 ile çözüyoruz h
         django_cleanup sayesinde ordan kalkan resim media klasöründen de kalkmış olacak 
        -ve kontrol edersen de aynı resmi 2 farklı makaleye yüklersen django resmin adını değiştirecek ve kopya hatası vermeyecektir
 
+
 69- MAKALE SİLME SAYFASI EKLEMEK
+
     !! adımlar tıpkı güncellemede ki gibi kolay
     
     1) article > urls.py -> pathimizi ekliyoruz "  path('delete/<int:id>/',views.deletearticle,name= 'delete'),    "
