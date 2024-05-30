@@ -53,6 +53,7 @@
 22- admin.py -> sayfasına gidip list_filter ile içeriğin tarihlerine göre filtreleme özelliğini ekledik(istediğin filtreleme kullanabilirsin başlık vb.)
 
 #TERMİNAL ÜZERİNDEN YENİ KULLANICI VEYA MAKALE OLUŞTURMA
+
 23- yeni terminal açıyoruz -> ' python manage.py shell ' yazıyoruz çünkü django ve orm sorgularını yazabileceğimiz python shell'ine ihtiyacımız var 
 
 24- shell ->  (InteractiveConsole) için yaptığımız işlemler:
