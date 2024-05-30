@@ -1,7 +1,9 @@
 #BLOG PROJESİNİN ADIMLARI 
 
 1-  cmd -> cd onedrive/belgeler/py klasörünü seçtik (cd ile)
+
 2-  cmd -> django-admin startproject blog_django yapıp projeyi başlattık (bu kod dosyaları otomatik oluşturdu)
+
 3-  settings.py -> Dil(tr), Time Zone(Europe/Istanbul) ayarlarnı değiştirdik . Debug en son değiştiririz şimdilik kalsın.
 4-  terminal -> python manage.py runserver yaparak dosyamızı çalıştırdık(terminal otomatik olarak dosyanın olduğu konumu seçer zaten)
 5-  terminal -> python manage.py migrate yaparak oluşan modelleri veritabanına kaydettik bu sayede sitede görebileceğiz
